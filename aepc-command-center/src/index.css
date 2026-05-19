@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: #0c0a09; /* stone-950 */
+  color: #f5f5f4; /* stone-100 */
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display + mono utility hooks (the Tailwind config maps font-display/font-mono
+   to these stacks, but we re-declare here so .font-display still works in
+   contexts where Tailwind purge would otherwise strip them.) */
+.font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+.font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(124, 193, 66, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 193, 66, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Subtle, dark-themed scrollbars across the dashboard */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #44403c #0c0a09;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: #292524; border-radius: 0; }
+*::-webkit-scrollbar-thumb:hover { background: #44403c; }
+
+.scrollbar-thin::-webkit-scrollbar { height: 4px; }
+
+/* Form controls — kill the chunky default outline on focus, lean on border-color instead */
+input, textarea, select, button { outline-offset: 2px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 1px solid rgba(124, 193, 66, 0.4);
+}
+
+/* Native date input calendar icon — make it readable on dark bg */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+/* Drawer / modal animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* Print: collapse the dashboard to a clean monochrome report for the weekly review meeting */
+@media print {
+  body { background: white; color: black; }
+  header, nav, button { display: none !important; }
+  .grid-bg { background-image: none; }
+}
