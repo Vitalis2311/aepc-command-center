@@ -9,7 +9,7 @@ export default function App() {
 
   const handleLogin = async () => {
     try {
-      await instance.loginPopup(loginRequest);
+      await instance.loginRedirect(loginRequest);
     } catch (err) {
       console.error(err);
     }
