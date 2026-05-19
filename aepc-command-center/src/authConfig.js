@@ -3,7 +3,8 @@ export const msalConfig = {
     clientId: "7764b011-1ded-462b-8c09-d3dbbbbb1c54",
     authority: "https://login.microsoftonline.com/6fc029e9-60ff-4a01-83a2-bc98174dbba7",
     redirectUri: "https://ashy-ground-0fc2ab410.azurestaticapps.net/",
-    navigateToLoginRequestUrl: false
+    postLogoutRedirectUri: "https://ashy-ground-0fc2ab410.azurestaticapps.net/",
+    navigateToLoginRequestUrl: true
   },
   cache: {
     cacheLocation: "localStorage",
