@@ -10,18 +10,23 @@ import { msalConfig } from './authConfig';
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
-msalInstance.initialize().then(() => {
-  // Handle redirect after Microsoft login
-  msalInstance.handleRedirectPromise().then((response) => {
-    if (response) {
-      msalInstance.setActiveAccount(response.account);
-    }
-  }).catch(console.error);
+async function bootstrap() {
+  await msalInstance.initialize();
 
-  // Set active account if already logged in
-  const accounts = msalInstance.getAllAccounts();
-  if (accounts.length > 0) {
-    msalInstance.setActiveAccount(accounts[0]);
+  try {
+    const response = await msalInstance.handleRedirectPromise();
+
+    if (response?.account) {
+      msalInstance.setActiveAccount(response.account);
+    } else {
+      const accounts = msalInstance.getAllAccounts();
+
+      if (accounts.length > 0) {
+        msalInstance.setActiveAccount(accounts[0]);
+      }
+    }
+  } catch (err) {
+    console.error('MSAL Redirect Error:', err);
   }
 
   ReactDOM.createRoot(document.getElementById('root')).render(
@@ -31,4 +36,6 @@ msalInstance.initialize().then(() => {
       </MsalProvider>
     </React.StrictMode>
   );
-});
+}
+
+bootstrap();
