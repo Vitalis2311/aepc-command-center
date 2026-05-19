@@ -11,6 +11,14 @@ export const msalConfig = {
   }
 };
 
+// Scopes for basic user profile
 export const loginRequest = {
   scopes: ["User.Read"]
 };
+
+// Scopes for Dataverse access
+export const dataverseRequest = {
+  scopes: ["https://arborfg.crm.dynamics.com/.default"]
+};
+
+export const DATAVERSE_URL = "https://arborfg.crm.dynamics.com";
